@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#3043CD80</color>
+    <color name="paper">#050000FF</color>
+    <color name="lines">#FF0000FF</color>
+    <color name="margin">#AA4876FF</color>
+    <color name="text">#EE000000</color>
+</resources>

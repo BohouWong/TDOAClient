@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<RelativeLayout 
+	    xmlns:android="http://schemas.android.com/apk/res/android"
+    	android:layout_width="match_parent"
+    	android:layout_height="match_parent" >
+
+	<com.qingshuimonk.tdoaclient.ReceiverItemView
+	    android:id="@+id/itemID"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+    	android:padding="10dp"
+    	android:scrollbars="vertical"
+    	android:textColor="@color/text"
+    	android:textStyle="italic"
+    	android:fadingEdge="vertical"/>
+	
+	<CheckBox 
+	    android:id="@+id/itemchoose"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentLeft="true"
+	    android:paddingTop="20dp"
+	    android:padding="10dp"/>
+	
+	<TextView
+	    android:id="@+id/itemMode"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+		android:layout_below="@id/itemchoose"
+		android:layout_marginLeft="50dp"
+        android:textColor="@color/text"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"/>
+	
+	<TextView
+	    android:id="@+id/itemVpp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/itemMode"
+		android:layout_below="@id/itemchoose"
+        android:textColor="@color/text"
+        android:paddingLeft="20dp"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"/>
+	
+	<TextView
+	    android:id="@+id/itemLongitude"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/itemMode"
+        android:layout_alignParentLeft="true"
+        android:paddingLeft="50dp"
+        android:textColor="@color/text"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"/>
+	
+	<TextView
+	    android:id="@+id/itemLatitude"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/itemLongitude"
+        android:paddingLeft="10dp"
+        android:layout_below="@id/itemMode"
+        android:textColor="@color/text"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"/>
+	
+	<TextView
+	    android:id="@+id/itemAltitude"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_below="@id/itemLongitude"
+        android:paddingBottom="10dp"
+        android:layout_marginLeft="50dp"
+        android:textColor="@color/text"
+        android:scrollbars="vertical"
+        android:fadingEdge="vertical"/>
+
+</RelativeLayout>

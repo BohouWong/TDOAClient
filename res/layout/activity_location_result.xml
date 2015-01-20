@@ -1,0 +1,142 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <TextView
+        android:id="@+id/result_banner_large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textSize="40sp"
+        android:text="@string/result_banner_text" />
+
+    <TextView
+        android:id="@+id/result_longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/result_banner_large"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="@string/result_longitude" />
+
+    <TextView
+        android:id="@+id/result_longtitude_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/result_longitude"
+        android:layout_toRightOf="@+id/result_longitude"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/result_latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/result_longitude"
+        android:layout_below="@+id/result_longitude"
+        android:text="@string/result_latitude" />
+
+    <TextView
+        android:id="@+id/result_latitude_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/result_latitude"
+        android:layout_alignBottom="@+id/result_latitude"
+        android:layout_toRightOf="@+id/result_latitude"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/result_altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/result_latitude"
+        android:layout_below="@+id/result_latitude"
+        android:text="@string/result_altitude" />
+
+    <TextView
+        android:id="@+id/result_altitude_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/result_altitude"
+        android:layout_alignBottom="@+id/result_altitude"
+        android:layout_toRightOf="@+id/result_altitude"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/result_variance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/result_altitude"
+        android:layout_below="@+id/result_altitude"
+        android:text="@string/result_variance" />
+
+    <TextView
+        android:id="@+id/result_variance_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/result_variance"
+        android:layout_alignBottom="@+id/result_variance"
+        android:layout_toRightOf="@+id/result_variance"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/result_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/result_variance"
+        android:layout_below="@+id/result_variance"
+        android:text="@string/result_time" />
+
+    <TextView
+        android:id="@+id/result_time_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/result_time"
+        android:layout_alignBottom="@+id/result_time"
+        android:layout_toRightOf="@+id/result_time"
+        android:text="" />
+
+    <TextView
+        android:id="@+id/result_correlation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/result_time"
+        android:layout_below="@+id/result_time_value"
+        android:layout_marginTop="15dp"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:textColor="@color/tv_color"
+        android:text="@string/result_correlation" />
+
+    <TextView
+        android:id="@+id/result_spectrum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/result_correlation"
+        android:layout_centerHorizontal="true"
+        android:textSize="20sp"
+        android:clickable="true"
+        android:textColor="@color/tv_color"
+        android:text="@string/result_spectrum" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_alignLeft="@+id/result_correlation"
+        android:layout_below="@+id/result_correlation"
+        android:orientation="vertical" >
+        
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/result_bmapView"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+
+    </LinearLayout>
+
+</RelativeLayout>

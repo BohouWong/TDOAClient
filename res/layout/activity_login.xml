@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <EditText
+        android:id="@+id/inputPassWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/bg_edittext"
+        android:hint="@string/inputPassWordHint"
+        android:inputType="textPassword"
+        android:ems="10" >
+    </EditText>
+
+    <EditText
+        android:id="@+id/inputUserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/inputPassWord"
+        android:layout_alignLeft="@+id/inputPassWord"
+        android:layout_alignRight="@id/inputPassWord"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/bg_edittext"
+        android:ems="10"
+        android:hint="@string/inputUserNameHint" />
+
+    <TextView
+        android:id="@+id/createNewAccount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/inputPassWord"
+        android:layout_below="@+id/inputPassWord"
+        android:layout_marginTop="30dp"
+        android:clickable="true"
+        android:textColor="@color/tv_color"
+        android:text="@string/createNewAccount" />
+
+    <TextView
+        android:id="@+id/forgetPassWord"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/createNewAccount"
+        android:layout_alignBottom="@+id/createNewAccount"
+        android:layout_alignRight="@+id/inputPassWord"
+        android:clickable="true"
+        android:textColor="@color/tv_color"
+        android:text="@string/forgetPassWord" />
+
+    <Button
+        android:id="@+id/Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/createNewAccount"
+        android:layout_alignRight="@+id/forgetPassWord"
+        android:layout_below="@+id/createNewAccount"
+        android:layout_marginTop="19dp"
+        android:text="@string/login" />
+
+    <ImageView
+        android:id="@+id/loginIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/inputUserName"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/tdoa_icon" />
+
+</RelativeLayout>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/registdialog" >
+    
+    <LinearLayout 
+        
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <TextView 
+            android:id="@+id/registusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/username"/>
+        
+        <EditText 
+            android:id="@+id/newusername"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/usernamehint"
+            android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
+            android:inputType="textPersonName" >
+        </EditText>
+        
+    </LinearLayout>
+    
+   	<LinearLayout 
+        
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+        <TextView 
+            android:id="@+id/registpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/password"/>
+        
+        <EditText 
+            android:id="@+id/newpassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/passwordhint"
+            android:digits="1234567890qwertyuiopasdfghjklzxcvbnm"
+            android:inputType="textPassword" >
+            </EditText>
+        
+    </LinearLayout>
+    
+   	<LinearLayout 
+        
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp">
+        
+        <TextView 
+            android:id="@+id/registmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/mail"/>
+        
+        <EditText 
+            android:id="@+id/newmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="@string/mailhint"
+            android:digits="1234567890qwertyuiopasdfghjklzxcvbnm@."
+            android:inputType="textEmailAddress" >
+            </EditText>
+        
+    </LinearLayout>
+    
+   	
+   
+
+</LinearLayout>

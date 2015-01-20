@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">时差定位客户端</string>
+    <string name="action_settings">设置</string>
+
+    <!-- activity_login -->
+    <string name="inputUserNameHint">请输入用户名：</string>
+    <string name="inputPassWordHint">请输入密码：</string>
+    <string name="createNewAccount"><u>注册新用户</u></string>
+    <string name="forgetPassWord"><u>忘记密码</u></string>
+    <string name="username">账户：</string>
+    <string name="usernamehint">请输入账户</string>
+    <string name="password">密码：</string>
+    <string name="passwordhint">请输入密码</string>
+    <string name="mail">邮箱：</string>
+    <string name="mailhint">请输入邮箱</string>
+    <string name="login">登陆</string>
+
+    <!-- activity region choose -->
+    <string name="title_activity_region_choose">选择定位区域</string>
+    <string name="longPressAddPoint">长按添加坐标点：</string>
+    <string name="firstPoint">第一点坐标：</string>
+    <string name="secondPoint">第二点坐标：</string>
+
+    <!-- activity location parameter -->
+    <string name="title_activity_location_parameter">设置定位参数</string>
+    <string name="centerfrebanner">请输入中心频率：</string>
+    <string name="centerfrehint">20MHz~3.6GHz</string>
+    <string name="bandwidthbanner">请输入带宽：</string>
+    <string name="samplebanner">请输入样本数：</string>
+    <string name="samplehint">有效值:0~64</string>
+    <string name="mgcbanner">配置手动增益参数：</string>
+    <string name="mgchint">有效值:0~50</string>
+    <string name="trigmodebanner">选择触发方式：</string>
+    <string name="powertrig">能量触发：</string>
+    <string name="timetrig">时间触发：</string>
+    <string name="powertrigdialogbanner">请输入能量触发阀值：</string>
+    <string name="powertrigdialoghint">单位：dBμV\n有效范围:-10~128</string>
+    <string name="powertrigdialoginputhint">触发阀值：</string>
+    <string name="powertriginputhint">-10~128</string>
+    <string name="timetrigdialogbanner">请选择触发时间：</string>
+
+    <string-array name="hertzunit">
+        <item>MHz</item>
+        <item>GHz</item>
+    </string-array>
+    <string-array name="bdunit">
+        <item>1kHz</item>
+        <item>3kHz</item>
+        <item>5kHz</item>
+        <item>10kHz</item>
+        <item>12.5kHz</item>
+        <item>25kHz</item>
+        <item>30kHz</item>
+        <item>50kHz</item>
+        <item>100kHz</item>
+        <item>150kHz</item>
+        <item>200kHz</item>
+        <item>500kHz</item>
+        <item>1MHz</item>
+        <item>2MHz</item>
+        <item>5MHz</item>
+        <item>10MHz</item>
+        <item>20MHz</item>
+    </string-array>
+
+    <!-- activity receiver choose -->
+    <string name="title_activity_receiver_choose">选择接收机</string>
+    <string name="choosereceiverbanner">请选择4~6个接收机</string>
+
+    <!-- activity result -->
+    <string name="title_activity_result">结果显示</string>
+    <string name="correlationText"><u>相关</u></string>
+    <string name="varianceText"><u>方差</u></string>
+    <string name="moreInfo"><u>详细信息</u></string>
+    <string name="runinbackground">后台运行</string>
+    <string name="timeprocessbanner">离触发时间还有：</string>
+    <string name="powerprocessbanner">等待能量触发#8230</string>
+    
+    <!-- activity location result -->
+    <string name="title_activity_location_result">结果显示</string>
+    <string name="result_banner_text">等待触发</string>
+    <string name="result_longitude">经度：</string>
+    <string name="result_latitude">纬度：</string>
+    <string name="result_altitude">高度：</string>
+    <string name="result_variance">方差：</string>
+    <string name="result_time">时间：</string>
+    <string name="result_correlation"><u>相关</u></string>
+    <string name="result_spectrum"><u>频谱</u></string>
+
+    <!-- activity setting -->
+    <string name="networkbanner">设置网络链接参数：</string>
+    <string name="inputServerAddress">输入服务器IP地址</string>
+    <string name="inputServerPort">输入服务器端口</string>
+    <string name="inputServerAddresshint">服务器IP地址</string>
+    <string name="inputServerPorthint">服务器端口</string>
+    <string name="inputLocalPort">输入本地端口</string>
+    <string name="inputLocalPorthint">本地端口</string>
+    <string name="clickchange">点击更改</string>
+    <string name="defaultServerAddress">192.168.1.106</string>
+    <string name="defaultServerPort">8080</string>
+    <string name="defaultLocalPort">8080</string>
+
+    <!-- activity correlation -->
+    <string name="title_activity_correlation">相关数据显示</string>
+
+    <!-- activity variance -->
+    <string name="title_activity_variance">显示方差数据</string>
+
+    <!-- common -->
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="next">下一步</string>
+    <string name="clear">清空</string>
+    <string name="exit">退出</string>
+    <string name="back">返回</string>
+    <string name="title_activity_setting">系统设置</string>
+
+</resources>

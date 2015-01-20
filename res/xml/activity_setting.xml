@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    <PreferenceCategory android:title="@string/networkbanner">
+        <EditTextPreference android:dialogTitle="@string/inputServerAddress" android:title="@string/inputServerAddresshint" android:summary="@string/clickchange" android:key="SettingServerAddress" android:defaultValue="@string/defaultServerAddress"/>
+        <EditTextPreference android:dialogTitle="@string/inputServerPort" android:title="@string/inputServerPorthint" android:summary="@string/clickchange" android:key="SettingServerPort" android:defaultValue="@string/defaultServerPort"/>
+        <EditTextPreference android:dialogTitle="@string/inputLocalPort" android:key="SettingLocalPort" android:title="@string/inputLocalPorthint" android:summary="@string/clickchange" android:defaultValue="@string/defaultLocalPort"/>
+    </PreferenceCategory>
+    
+
+</PreferenceScreen>

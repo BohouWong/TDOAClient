@@ -1,0 +1,182 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <TextView
+            android:id="@+id/centerfrebanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/centerfrebanner" />
+
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/inputcenterfre"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/centerfrehint"
+            android:inputType="numberDecimal" >
+        </EditText>
+
+        <Spinner
+            android:id="@+id/inputcenterfrespinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/bandwidthbanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/bandwidthbanner" />
+
+        <Spinner
+            android:id="@+id/inputbandwidth"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_weight="1" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/samplebanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/samplebanner" />
+
+        <EditText
+            android:id="@+id/inputsample"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:hint="@string/samplehint"
+            android:layout_weight="1"
+            android:ems="10"
+            android:inputType="number" />
+
+        <TextView
+            android:id="@+id/sampleunit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:text="k" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/mgcbanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="20dp"
+            android:text="@string/mgcbanner" />
+
+        <EditText
+            android:id="@+id/inputmgc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:hint="@string/mgchint"
+            android:ems="10"
+            android:inputType="numberSigned" />
+
+        <TextView
+            android:id="@+id/mgcdb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:text="dB" />
+        
+	</LinearLayout>
+        
+        <TextView 
+            android:id="@+id/trigmodebanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:text="@string/trigmodebanner"/>
+        
+ 
+		
+		<RadioGroup
+    		android:id="@+id/trigmodegroup"
+    		android:layout_width="wrap_content"
+    		android:layout_height="wrap_content" 
+    		android:orientation="horizontal">
+
+    		<RadioButton
+        		android:id="@+id/timetrig"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:layout_marginLeft="20dp"
+        		android:text="@string/timetrig" />
+
+    		<RadioButton
+        		android:id="@+id/powertrig"
+        		android:layout_width="wrap_content"
+        		android:layout_height="wrap_content"
+        		android:text="@string/powertrig" />
+
+		</RadioGroup>
+		
+		    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <Button
+            android:id="@+id/setreceiverclear"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/clear" />
+
+        <Button
+            android:id="@+id/setreceivernext"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="bottom"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/next" />
+
+    </LinearLayout>
+
+	</LinearLayout>

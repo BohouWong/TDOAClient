@@ -1,0 +1,98 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" 
+        android:layout_weight="2">
+
+        <TextView
+            android:id="@+id/ChartTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="AChartEngine Demo" />
+
+        <LinearLayout
+            android:id="@+id/ChartView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="vertical" >
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical" 
+        android:layout_weight="1"
+        android:layout_marginLeft="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/RightLabel1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Max: " />
+
+            <TextView
+                android:id="@+id/RightValue1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/RightLabel2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Min: " />
+
+            <TextView
+                android:id="@+id/RightValue2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/RightLabel3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ave： " />
+
+            <TextView
+                android:id="@+id/RightValue3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="start" />
+
+    </LinearLayout>
+
+</LinearLayout>

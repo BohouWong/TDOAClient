@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp" 
+        android:layout_weight="5">
+
+    <ListView
+        android:id="@+id/receiverlist"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
+    
+    </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp" 
+        android:layout_weight="4">
+
+        <com.baidu.mapapi.map.MapView
+            android:id="@+id/receiverchoose_Map"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_margin="10dp"
+            android:clickable="true" />
+
+ 	</LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="0dp" 
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/choosereceiverbanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:textSize="18sp"
+            android:text="@string/choosereceiverbanner" />
+        
+        <Button 
+            android:id="@+id/receiverchoosenext"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
+            android:text="@string/next"/>
+        
+    </LinearLayout>
+
+</LinearLayout>

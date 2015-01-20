@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/timetrigdialog"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/timetrigdialogbanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/timetrigdialogbanner" />
+
+    <DatePicker
+        android:id="@+id/timetrigdatePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:startYear="2014"
+        android:endYear="2050"
+        android:calendarViewShown="false"/>
+
+    <TimePicker
+        android:id="@+id/timetrigtimePicker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" 
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"/>
+
+</LinearLayout>

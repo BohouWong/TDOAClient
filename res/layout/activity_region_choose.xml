@@ -1,0 +1,109 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/regionLabelHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/longPressAddPoint" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/firstPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="@string/firstPoint" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/secondPoint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/secondPoint" />
+
+    </LinearLayout>
+
+   
+    
+    <com.baidu.mapapi.map.MapView  
+    	android:id="@+id/bmapView"  
+    	android:layout_width="fill_parent"  
+    	android:layout_height="fill_parent"  
+    	android:clickable="true" 
+    	android:layout_weight="40"
+    	android:layout_marginLeft="20dp"
+    	android:layout_marginRight="20dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" 
+        android:layout_weight="1"
+        android:layout_marginBottom="20dp">
+		
+        <LinearLayout
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical"
+        	android:layout_weight="1">
+        	<Button
+            	android:id="@+id/confirm"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_marginLeft="20dp"
+            	android:layout_gravity="center"
+            	android:text="@string/confirm" />
+        	</LinearLayout>
+        	
+        <LinearLayout
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:orientation="vertical"
+        	android:layout_weight="1">
+        	<Button
+            	android:id="@+id/cancel"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_gravity="center"
+            	android:text="@string/cancel" />
+        	</LinearLayout>
+        	
+        <LinearLayout
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:layout_weight="1"
+        	android:orientation="vertical">
+        	<Button
+            	android:id="@+id/next"
+            	android:layout_width="wrap_content"
+            	android:layout_height="wrap_content"
+            	android:layout_gravity="center"
+            	android:text="@string/next" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
