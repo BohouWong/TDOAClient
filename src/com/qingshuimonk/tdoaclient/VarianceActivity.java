@@ -7,6 +7,8 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 
+import com.qingshuimonk.tdoaclient.utils.SysApplication;
+
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Context;
@@ -16,15 +18,27 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.LinearLayout.LayoutParams;
 
+/***
+ * 本activity用于方差相关数据的操作
+ * 功能:		
+ * 	1.显示方差数据；
+ * @version 1.0.0
+ * @since 2014.11.22
+ */
+/***
+ * FIXME
+ * @author Huang Bohao
+ * 根据LocationResult改编此activity
+ * 此activity应被频谱显示activity替换
+ */ 
 public class VarianceActivity extends Activity {
-	// Definition of variables
+	// 定义变量
 	private static final int XLENGTH = 100;
 	private static final int YLENGTH = 100;
 	private XYSeries series;
 	private XYMultipleSeriesDataset mDataset;
 	private GraphicalView chart;
 	private XYMultipleSeriesRenderer renderer;
-	private int addX = -1;
 	double addY;
 	int[] xv = new int[XLENGTH];
 	double[] yv = new double[YLENGTH];
@@ -34,30 +48,30 @@ public class VarianceActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_variance);
 		
-		// add activity to list
+		// 将此activity添加到SysApplication类中
 		SysApplication.getInstance().addActivity(this);
 		
-		// get ID of widgets
+		// 获取GlobalVariable类的全局变量
 		TextView RightLabel1 = (TextView) findViewById(R.id.VarianceRightLabel1);
 
-		// get data transferred from ResultActivity
+		// 接收ResultActvity的数据
 		Integer i = (Integer) getIntent().getSerializableExtra("correlation");
 		RightLabel1.setText("接收机编号:" + i);
 
 		Context context = getApplicationContext();
-		// get layout in view, the chart will be set into the layout
+		// 设置ACE的显示区域
 		LinearLayout layout = (LinearLayout) findViewById(R.id.VarianceChartView);
 
-		// generate random dots
+		// 产生随机数
 		final myAChartEngineLine achart = new myAChartEngineLine(series,
 				mDataset, renderer);
-		achart.setLineData(Color.GREEN, PointStyle.CIRCLE); // set the style of the chart
+		achart.setLineData(Color.GREEN, PointStyle.CIRCLE); // 设置图表样式
 		achart.setChartSettings("This is a demo", "X", "Y", 0, XLENGTH, 0, 100,
 				Color.WHITE, Color.WHITE, true, Color.GREEN, 10, 5);
-		// generate the chart
+		// 创建图表
 		chart = ChartFactory.getLineChartView(context, achart.mDataset,
 				achart.renderer);
-		// add the chart into the layout
+		// // 将图表添加至layout
 		layout.addView(chart, new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT));
 

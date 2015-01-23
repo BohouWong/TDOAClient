@@ -1,31 +1,30 @@
 package com.qingshuimonk.tdoaclient.data_structrue;
 
-import java.util.concurrent.BlockingQueue;
 
 /***
- * This is a class defines variables and functions of Tuner
+ * 本类用于定义接收机数据相关的变量和方法
  * @author Huang Bohao
  * @version 1.0
  * @since 2014.11.10
  * 
- * @Notice TunerIP,Pos,WorkMode,AveVoltage cannot be changed in client
+ * @Notice TunerIP,Pos,WorkMode,AveVoltage在客户端不能更改
  */
 
 public class Tuner{
-	private byte TunerID;						// Number of receiver
-	private Position Pos;						// Position of Receiver
-	private byte WorkMode;						// Work mode: 1:available	0:unavailable
-	private TunerWorkParameter Parameter;		// Work parameter
-	private double AveVoltage;					// Average voltage
-	private IQ IQqueue;							// IQ data
-	private FreqSpectrum FreqSpectrum;			// Frequency Spectrum
+	private byte TunerID;						// 接收机ID
+	private Position Pos;						// 接收机位置
+	private byte WorkMode;						// 接收机工作模式
+	private TunerWorkParameter Parameter;		// 接收机工作参数
+	private double AveVoltage;					// 平均电平值
+	private IQ IQqueue;						// IQ数据
+	private FreqSpectrum FreqSpectrum;			// 频谱数据
 
 	/***
-	 * Constructor of Tuner		
-	 * @param _TunerID			Number of receiver
-	 * @param _Pos				Position of Receiver
-	 * @param _WorkMode			Work mode: 1:available	0:unavailable
-	 * @param AveVoltage		Average voltage
+	 * 构造函数		
+	 * @param _TunerID			接收机ID
+	 * @param _Pos				接收机位置
+	 * @param _WorkMode			接收机工作模式: 1:可用	0:不可用
+	 * @param AveVoltage		平均电平值
 	 */
 	public Tuner(byte _TunerID, Position _Pos, byte _WorkMode, double _AveVoltage){
 		TunerID = _TunerID;
@@ -34,82 +33,36 @@ public class Tuner{
 		AveVoltage = _AveVoltage;
 	}
 	
-	/***
-	 * Set TunerWorkParameter
-	 * @param _Parameter
-	 */
+	// setters
 	public void setTunerWorkParameter(TunerWorkParameter _Parameter){
 		Parameter = _Parameter;
 	}
-	
-	/***
-	 * Set IQData
-	 * @param _IQData
-	 */
 	public void setIQData(IQ _IQqueue){
 		IQqueue = _IQqueue;
 	}
-	
-	/***
-	 * Set FreqSpectrum
-	 * @param _FreqSpectrum
-	 */
 	public void setFreqSpectrum(FreqSpectrum _FreqSpectrum){
 		FreqSpectrum = _FreqSpectrum;
 	}
 	
-	/***
-	 * Get TunerID
-	 * @return TunerID
-	 */
+	// getters
 	public byte getTunerID(){
 		return TunerID;
 	}
-	
-	/***
-	 * Get Pos
-	 * @return Pos
-	 */
 	public Position getPosition(){
 		return Pos;
 	}
-	
-	/***
-	 * Get WorkMode
-	 * @return WorkMode
-	 */
 	public byte getWorkMode(){
 		return WorkMode;
 	}
-	
-	/***
-	 * Get Parameter
-	 * @return Parameter
-	 */
 	public TunerWorkParameter getParameter(){
 		return Parameter;
 	}
-	
-	/***
-	 * Get AveVoltage
-	 * @return AveVoltage
-	 */
 	public double getAveVoltage(){
 		return AveVoltage;
 	}
-	
-	/***
-	 * Get IQ
-	 * @return IQqueue
-	 */
 	public IQ getIQqueue(){
 		return IQqueue;
 	}
-	
-	/***
-	 * Get FreqSpectrum
-	 * @return FreqSpectrum
-	 */
 	public FreqSpectrum getFreqSpectrum(){
 		return FreqSpectrum;
 	}

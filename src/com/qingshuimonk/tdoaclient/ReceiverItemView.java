@@ -9,12 +9,14 @@ import android.widget.TextView;
 import com.qingshuimonk.tdoaclient.R;
 
 /***
- * This is a file to determine the item view of each receiver in ReceiverChooseActivity
- * Note: color.xml and dimens.xml are related for UI deploy 
+ * 本类用于定义ReceiverChooseActivity中ListView显示
+ * 功能:		
+ * 1.定义ListView中每一项条目的显示；
+ * 注意: 
+ * 1.需要修改添加color.xml和dimens.xml以完成UI显示 
  * @author Huang Bohao
  * @version 1.0
  * @since 2014.11.18
- *
  */
 public class ReceiverItemView extends TextView{
 	

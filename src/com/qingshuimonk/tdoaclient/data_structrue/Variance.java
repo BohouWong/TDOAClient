@@ -1,22 +1,20 @@
 package com.qingshuimonk.tdoaclient.data_structrue;
 
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 
 /***
- * This is a class defines variables and functions of Variance
+ * 本类用于定义方差数据相关的变量和方法
  * @author Huang Bohao
  * @version 1.0
  * @since 2014.11.10
  */
-
 public class Variance{
 	private ArrayBlockingQueue<Double> Var;
 	private DateTime Time;
 	
 	/***
-	 * Constructor of Variance
+	 * 构造函数
 	 * @param _Var
 	 * @param _Time
 	 */
@@ -25,26 +23,15 @@ public class Variance{
 		Time = _Time;
 	}
 	
-	/***
-	 * Set Var of Variance
-	 * @param _Var
-	 */
+	// setters
 	public void setVar(ArrayBlockingQueue<Double> _Var){
 		Var = _Var;
 	}
 	
-	/***
-	 * Get Var of Variance
-	 * @return Var
-	 */
+	// getters
 	public ArrayBlockingQueue<Double> getVar(){
 		return Var;
 	}
-	
-	/***
-	 * Get Time of Variance
-	 * @return Time
-	 */
 	public DateTime getDateTime(){
 		return Time;
 	}

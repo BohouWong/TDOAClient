@@ -3,6 +3,7 @@ package com.qingshuimonk.tdoaclient;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -48,18 +49,26 @@ import com.qingshuimonk.tdoaclient.data_structrue.TunerWorkGroup;
 import com.qingshuimonk.tdoaclient.data_structrue.TunerWorkParameter;
 import com.qingshuimonk.tdoaclient.utils.Communicator;
 import com.qingshuimonk.tdoaclient.utils.ReceiverView;
+import com.qingshuimonk.tdoaclient.utils.SysApplication;
 import com.qingshuimonk.tdoaclient.utils.FrameFormer.FRAME_TYPE;
 
 
 /***
- * This is an android activity file.
- * function:	1.Show user's location in BaiduMap;
- * 				2.Allow user set location region by long-clicking mapview;
- * 				3.Save location region data.
+ * 本activity用于定义区域选择界面
+ * 配套xml文件: activity_location_result.xml
+ * 功能:		
+ * 1.在百度地图上显示用于定位区域坐标点；
+ * 2.在百度地图上显示接收机位置；
+ * 3.向服务器发送定位区域选择信息；
  * @author Huang Bohao
- * @version 1.0.0
+ * @version 1.2.0
  * @since 2014.11.11
  *
+  * 01/13/2015 1.1.0 修改说明：
+ * 添加了结果地图显示功能
+ * 
+ * 01/17/2015 1.2.0 修改说明：
+ * 在结果地图显示中运用新的view，显示图文覆盖物
  */
 public class RegionChooseActivity extends Activity{
 	
@@ -69,7 +78,7 @@ public class RegionChooseActivity extends Activity{
 	Double[] Location1 = new Double[2];
 	Double[] Location2 = new Double[2]; 
 	
-	// create ArrayList
+	// 用于存储接收机的经纬度坐标
 	LatLng[] receiverpos = null;
 	
 	@SuppressWarnings("deprecation")
@@ -79,16 +88,17 @@ public class RegionChooseActivity extends Activity{
 		SDKInitializer.initialize(getApplicationContext());  
 		setContentView(R.layout.activity_region_choose);
 		
-		// add activity to list
+		// 将此activity添加到SysApplication类中
 		SysApplication.getInstance().addActivity(this);
 		
-		// Used to access activity-level global variable
+		// 获取GlobalVariable类的全局变量
 		final GlobalVariable GV = (GlobalVariable)getApplicationContext(); 
 		
-		// Get map widget  
+		// 定义百度地图
 		mMapView = (MapView) findViewById(R.id.bmapView);  
 		final BaiduMap mBaidumap = mMapView.getMap();
-		// hide baidu logo and ZoomControl
+		
+		// 隐藏百度地图logo和放大缩小控件
 		int count = mMapView.getChildCount();
 		for (int i = 0; i < count; i++) {
 			View child = mMapView.getChildAt(i);
@@ -96,26 +106,27 @@ public class RegionChooseActivity extends Activity{
 				child.setVisibility(View.INVISIBLE);
 		}
 		
-		// Get widgets ID
+		// 控件
 		final TextView firstPointLocation = (TextView)findViewById(R.id.firstPoint);
 		final TextView secondPointLocation = (TextView)findViewById(R.id.secondPoint);
 		final Button Confirm = (Button)findViewById(R.id.confirm);
 		final Button Next = (Button)findViewById(R.id.next);
 		final Button Cancel = (Button)findViewById(R.id.cancel);
 		
-		// create action bar
+		// 创建action bar
 		ActionBar LoginActionBar = this.getActionBar();
-		LoginActionBar.setDisplayShowTitleEnabled(true);	// ActionBar shows title only
+		LoginActionBar.setDisplayShowTitleEnabled(true);	// ActionBar只显示title
 		LoginActionBar.setDisplayShowHomeEnabled(false);
 		
-		// send data request
+		// 向服务器发送数据请求
 		final ProgressDialog SendMessage = new ProgressDialog(RegionChooseActivity.this);
 		SendMessage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 		SendMessage.setMessage("等待向服务器发送参数");
 		SendMessage.setCancelable(false);
 		SendMessage.show();
-		// set handler
+		// 配置handler
 		final Handler sendhandler = new Handler() {  
+			@SuppressLint("HandlerLeak")
 			@Override
 			public void handleMessage(Message msg) {
 				super.handleMessage(msg);
@@ -124,11 +135,13 @@ public class RegionChooseActivity extends Activity{
 					}
 			}     
 		}; 
+		// 调用Communicator类
 		Communicator DataRequest_cator = new Communicator(sendhandler);
 		DataRequest_cator.sendDataRequest(GV, FRAME_TYPE.DATA_REQUEST, (byte) 0x01);
 		
 		if(GV.DEBUG_UDP_CONNECTION){
-			// get receivers information
+			// 有wifi连接
+			// 获取接收机数据
 			final ProgressDialog ReceiveMessage = new ProgressDialog(
 					RegionChooseActivity.this);
 			ReceiveMessage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -137,14 +150,12 @@ public class RegionChooseActivity extends Activity{
 			ReceiveMessage.setButton("取消", new DialogInterface.OnClickListener() {
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-				// TODO Auto-generated method stub
 				AlertDialog CancelReaffirmDialog = new AlertDialog.Builder(RegionChooseActivity.this)
 					.setIcon(android.R.drawable.ic_dialog_alert).setTitle("取消接收信息:").setMessage("是否确认取消本次接收？")
 					.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated
-							// method stub
+							// 取消定位，跳转至登录界面
 							Intent _intent = new Intent(RegionChooseActivity.this, LoginActivity.class);
 							startActivity(_intent);
 						}
@@ -155,11 +166,12 @@ public class RegionChooseActivity extends Activity{
 			ReceiveMessage.show();
 			// 配置handler
 			final Handler receivehandler = new Handler() {
+				@SuppressLint("HandlerLeak")
 				@Override
 				public void handleMessage(Message msg) {
 					super.handleMessage(msg);
 					if (msg.what != 0) {
-						// add receiver
+						// 向百度地图添加工作接收机
 						addReceiver2Map(GV, mBaidumap);
 						
 						LatLngBounds.Builder boundsbuilder = new LatLngBounds.Builder();
@@ -177,27 +189,28 @@ public class RegionChooseActivity extends Activity{
 			Receiver_cator.receiveData(GV, FRAME_TYPE.AVAILABLE_RECEIVER_MAP);
 		}
 		else{
-			// Get current Location
+			// 无wifi连接
+			// 获取当前位置
 			LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 			final LocationListener locationListener = new LocationListener() {
 			    public void onLocationChanged(Location location) { 
-			    	// triggered when current location changes
-			        //location changes
+			    	// 当前地理坐标改变时触发
 			    }
 
 			    public void onProviderDisabled(String provider) {
-			    // triggered when provider is disabled, GPS is closed for instance
+			    	// 当当前位置提供器失效时触发，例如关闭GPS
 			    }
 
 			    public void onProviderEnabled(String provider) {
-			    //  triggered when provider is available, GPS is open for instance
+			    	// 当当前位置提供器有效时触发，例如打开GPS
 			    }
 
 			    public void onStatusChanged(String provider, int status, Bundle extras) {
-			    // triggered when provider is changing status among available, disable and out of service
+			    	// 当当前位置提供器改变时触发
 			    }
 			};
 			
+			// 开始获取定位信息
 			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,6000, 1, locationListener);
 			Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 			double latitude, longitude;
@@ -209,47 +222,41 @@ public class RegionChooseActivity extends Activity{
 				longitude = 103.9411360000;
 			}
 			else{
-				latitude = location.getLatitude();     	//Latitude
-				longitude = location.getLongitude(); 	//Altitude
+				latitude = location.getLatitude();     	// 设置当前位置经度
+				longitude = location.getLongitude(); 	// 设置当前位置纬度
 			}
 			
-			// set center point
+			// 设置中心点
 			LatLng cenpt = new LatLng(latitude,longitude); 
 			locationManager.removeUpdates(locationListener);
 			
-			// define map status
+			// 定义地图状态
 			MapStatus mMapStatus = new MapStatus.Builder().target(cenpt).zoom(20).build();
-			// define MapStatusUpdate to describe the incoming changes for this map
 			final MapStatusUpdate mMapStatusUpdate = MapStatusUpdateFactory.newMapStatus(mMapStatus);
-			// change map status
 			mBaidumap.setMapStatus(mMapStatusUpdate);
 		}
 		
 		//添加定位位置
 		OnMapLongClickListener listener = new OnMapLongClickListener() {  
 		    /***
-		    * Listener for map's long click activity
-		    * @param point location where it is been long clicked
+		    * 地图长按事件监听
+		    * @param point 长按处地理坐标
 		    */  
 		    public void onMapLongClick(LatLng point){  
 		    	regionFlag++;
 		    	OverlayOptions option1 = new MarkerOptions();
 		    	OverlayOptions option2 = new MarkerOptions();
 		    	
-		    	// add pin points
-		    	// add marker points
 		    	if(regionFlag == 1){
-		    		// create Marker icon  
+		    		// 添加地图覆盖物
 			    	BitmapDescriptor bitmap = BitmapDescriptorFactory  
 			    	    .fromResource(R.drawable.icon_marka);  
-			    	// create MarkerOption，to add Marker in map  
 			    	option1 = new MarkerOptions()  
 			    	    .position(point)  
 			    	    .icon(bitmap);
-			    	// add Marker in map and show it  
 			    	mBaidumap.addOverlay(option1);
 			    	
-			    	// save location data
+			    	// 存储位置数据
 			    	Location1[0] = point.latitude;
 			    	Location1[1] = point.longitude;
 			    	firstPointLocation.setText("第一点坐标:纬度"+Location1[0]+"° 经度:"+Location1[1]);
@@ -257,17 +264,15 @@ public class RegionChooseActivity extends Activity{
 			    	lastpoint = point;
 		    	}
 		    	if(regionFlag == 2){
-		    		//create Marker icon  
+		    		// 添加地图覆盖物
 			    	BitmapDescriptor bitmap = BitmapDescriptorFactory  
 			    	    .fromResource(R.drawable.icon_markb);  
-			    	// create MarkerOption, to add marker in map  
 			    	option2 = new MarkerOptions()  
 			    	    .position(point)  
 			    	    .icon(bitmap);
-			    	// add marker in map and show it
 			    	mBaidumap.addOverlay(option2);
 			    	
-			    	// save location data
+			    	// 存储位置数据
 			    	Location2[0] = point.latitude;
 			    	Location2[1] = point.longitude;
 			    	secondPointLocation.setText("第二点坐标:纬度"+Location2[0]+"° 经度:"+Location2[1]);
@@ -275,56 +280,50 @@ public class RegionChooseActivity extends Activity{
 			    	lastpoint = point;
 		    	}
 		    	if(regionFlag == 3){
+		    		// 清空已有地图覆盖物
 		    		mBaidumap.clear();
-		    		addReceiver2Map(GV, mBaidumap);
-		    		// create Marker icon  
+		    		addReceiver2Map(GV, mBaidumap);		// 添加接收机位置
+		    		// 添加地图覆盖物  
 			    	BitmapDescriptor bitmap = BitmapDescriptorFactory  
 			    	    .fromResource(R.drawable.icon_markb);  
-			    	// create MarkerOption, and show it in map 
 			    	option1 = new MarkerOptions()  
 			    	    .position(lastpoint)  
 			    	    .icon(bitmap);  
-			    	// create marker in map and show it
 			    	mBaidumap.addOverlay(option1);
-		    		// save location data
+			    	// 存储位置数据
 			    	Location1[0] = point.latitude;
 			    	Location1[1] = point.longitude;
 			    	firstPointLocation.setText("第一点坐标:纬度"+Location1[0]+"° 经度:"+Location1[1]);
 		    		
-		    		// create Marker icon
+			    	// 添加地图覆盖物
 			    	BitmapDescriptor bitmap2 = BitmapDescriptorFactory  
 			    	    .fromResource(R.drawable.icon_marka);  
-			    	// create MarkerOption, to add marker in map  
 			    	option2 = new MarkerOptions()  
 			    	    .position(point)  
 			    	    .icon(bitmap2);
-			    	// add Marker in map and show it  
 			    	mBaidumap.addOverlay(option2);
 			    	lastpoint = point;
 		    	}
 		    	if(regionFlag == 4){
+		    		// 清空已有地图覆盖物
 		    		mBaidumap.clear();
-		    		addReceiver2Map(GV, mBaidumap);
-		    		// create marker icon
+		    		addReceiver2Map(GV, mBaidumap);		// 添加接收机位置
+		    		// 添加地图覆盖物  
 			    	BitmapDescriptor bitmap = BitmapDescriptorFactory  
 			    	    .fromResource(R.drawable.icon_markb);  
-			    	// create MarkerOption, to add marker in map 
 			    	option1 = new MarkerOptions()  
 			    	    .position(point)  
 			    	    .icon(bitmap);
-			    	// create Marker in map and show it   
 			    	mBaidumap.addOverlay(option1);
 		    		
-		    		// create marker icon  
+			    	// 添加地图覆盖物  
 			    	BitmapDescriptor bitmap2 = BitmapDescriptorFactory  
 			    	    .fromResource(R.drawable.icon_marka);  
-			    	// create MarkerOption, to add marker in map
 			    	option2 = new MarkerOptions()  
 			    	    .position(lastpoint)  
 			    	    .icon(bitmap2);
-			    	// add Marker in map and show it  
 			    	mBaidumap.addOverlay(option2);
-			    	// save location data
+			    	// 存储位置数据
 			    	Location2[0] = point.latitude;
 			    	Location2[1] = point.longitude;
 			    	secondPointLocation.setText("第二点坐标:纬度"+Location2[0]+"° 经度:"+Location2[1]);
@@ -339,9 +338,8 @@ public class RegionChooseActivity extends Activity{
 		Confirm.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				try{
-					// polygon's five points
+					// 添加矩形覆盖物
 					LatLng pt1 = new LatLng(Location1[0], Location1[1]);  
 					LatLng pt2 = new LatLng(Location1[0], Location2[1]);  
 					LatLng pt3 = new LatLng(Location2[0], Location2[1]);  
@@ -351,12 +349,10 @@ public class RegionChooseActivity extends Activity{
 					pts.add(pt2);  
 					pts.add(pt3);  
 					pts.add(pt4);   
-					//create Option  
 					OverlayOptions polygonOption = new PolygonOptions()  
 					    .points(pts)  
 					    .stroke(new Stroke(5, 0xAA00FF00))  
 					    .fillColor(0xAAFFFF00);  
-					// add polygon Option in map and show it  
 					mBaidumap.addOverlay(polygonOption);
 				}catch(Exception e){
 					Dialog NoPointSelected = new AlertDialog.Builder(RegionChooseActivity.this)
@@ -369,10 +365,11 @@ public class RegionChooseActivity extends Activity{
 			}
 		});
 		
+		// 清空已选择定位区域信息
 		Cancel.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				// 清空并重设数据
 				mBaidumap.clear();
 				addReceiver2Map(GV, mBaidumap);
 				regionFlag = 0;
@@ -383,10 +380,10 @@ public class RegionChooseActivity extends Activity{
 			}
 		});
 		
+		// “下一步”按键监听函数
 		Next.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				try{
 					LocationRegion Region = new LocationRegion((byte) 0,Location1[1],Location1[0],
 							Location2[1],Location2[0]);
@@ -401,8 +398,7 @@ public class RegionChooseActivity extends Activity{
 					.setPositiveButton("确定", new DialogInterface.OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
-							// jump to next activity
+							// 跳转至下一个activity
 							Intent _intent = new Intent(RegionChooseActivity.this, LocationParameterActivity.class);
 							startActivity(_intent);
 						}
@@ -480,7 +476,6 @@ public class RegionChooseActivity extends Activity{
 	
 	@Override  
 	 public boolean onOptionsItemSelected(MenuItem item) {  
-		 // TODO Auto-generated method stub  
 		 switch(item.getItemId()){
 		 case R.id.action_settings:
 			 Intent _intent = new Intent(RegionChooseActivity.this, SettingActivity.class);

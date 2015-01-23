@@ -3,7 +3,7 @@ package com.qingshuimonk.tdoaclient.data_structrue;
 import java.util.concurrent.BlockingQueue;
 
 /***
- * This is a class defines variables and functions of IQ
+ * 本类用于定义IQ数据相关的变量和方法
  * @author Huang Bohao
  * @version 1.0
  * @since 2014.11.10
@@ -13,7 +13,7 @@ public class IQ{
 	private BlockingQueue<Integer> IQqueue;
 	
 	/***
-	 * Constructor of IQ: add a pair of IQ data to queue
+	 * 构造函数
 	 * @param _I
 	 * @param _Q
 	 */
@@ -23,7 +23,7 @@ public class IQ{
 	}
 	
 	/***
-	 * Constructor of IQ: add a block of IQ data to queue
+	 * 构造函数
 	 * @param _IQ
 	 */
 	public IQ(int _IQ[]){
@@ -32,10 +32,7 @@ public class IQ{
 		}
 	}
 	
-	/***
-	 * Get the head of IQ data in queue
-	 * @return IQ: the pair of IQ data in the head of the queue
-	 */
+	// getters
 	public int[] getIQ(){
 		int IQ[] = new int[2];
 		IQ[0] = IQqueue.poll();
@@ -44,7 +41,7 @@ public class IQ{
 	}
 
 	/***
-	 * Calculate Vpp based IQ queue
+	 * 计算vpp
 	 * @param IQqueue
 	 * @return Vpp
 	 */

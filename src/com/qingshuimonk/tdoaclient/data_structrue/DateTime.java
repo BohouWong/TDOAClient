@@ -1,7 +1,7 @@
 package com.qingshuimonk.tdoaclient.data_structrue;
 
 /***
- * This is a class defines variables and functions corresponding to date time.
+ * 本类用于定义时间数据相关的变量和方法
  * @author Huang Bohao
  * @version 1.1
  * @since 2014.11.10
@@ -14,10 +14,11 @@ public class DateTime{
 	private short Hour;
 	private short Minute;
 	private short Second;
+	@SuppressWarnings("unused")
 	private short Milisecond;		// getMilisecond is not available in client
 
 	/***
-	 * Constructor of DateTime
+	 * 构造函数
 	 * @param _Year			
 	 * @param _Month
 	 * @param _Day
@@ -36,7 +37,7 @@ public class DateTime{
 		Milisecond = _Milisecond;
 	}
 	/***
-	 * Constructor of DateTime
+	 * 构造函数
 	 * @param _Year
 	 * @param _Month
 	 * @param _Day
@@ -51,117 +52,52 @@ public class DateTime{
 		Minute = _Minute;
 	}
 	
-	/***
-	 * Set the Year in DateTime
-	 * @param _Year
-	 */
+	// setters
 	public void setYear(short _Year){
 		Year = _Year;
 	}
-	
-	/***
-	 * Set the Month in DateTime
-	 * @param _Month
-	 */
 	public void setMonth(short _Month){
 		Month = _Month;
 	}
-	
-	/***
-	 * Set the Day in DateTime
-	 * @param _Day
-	 */
 	public void setDay(short _Day){
 		Day = _Day;
 	}
-	
-	/***
-	 * Set the Hour in DateTime
-	 * @param _Hour
-	 */
 	public void setHour(short _Hour){
 		Hour = _Hour;
 	}
-	
-	/***
-	 * Set the Minute in DateTime
-	 * @param _Minute
-	 */
 	public void setMinute(short _Minute){
 		Minute = _Minute;
 	}
-	
-	/***
-	 * Set the Second in DateTime
-	 * @param _Second
-	 */
 	public void setSecond(short _Second){
 		Second = _Second;
 	}
-	
-	/***
-	 * Set the Milisecond in DateTime
-	 * @param _Milisecond
-	 */
 	public void setMilisecond(short _Milisecond){
 		Milisecond = _Milisecond;
 	}
 	
-	/***
-	 * Get the Year in DateTime
-	 * @return Year
-	 */
+	// getters
 	public short getYear(){
 		return Year;
 	}
-	
-	/***
-	 * Get the Month in DateTime
-	 * @return Month
-	 */
 	public short getMonth(){
 		return Month;
 	}
-	
-	/***
-	 * Get the Day in DateTime
-	 * @return Day
-	 */
 	public short getDay(){
 		return Day;
 	}
-	
-	/***
-	 * Get the Hour in DateTime
-	 * @return Hour
-	 */
 	public short getHour(){
 		return Hour;
 	}
-	
-	/***
-	 * Get the Hour in DateTime
-	 * @return
-	 */
 	public short getMinute(){
 		return Minute;
 	}
-	
-	/***
-	 * Get the Second in DateTime
-	 * @return Second
-	 */
 	public short getSecond(){
 		return Second;
 	}
 	
 	/***
-	 * Transform DateTime into seconds, used to calculate time difference
-	 * @return differenceofTime
+	 * FIXME
+	 * 添加计算时间差的方法
 	 */
-	public long secondofTime(){
-		long differenceofTime = 0;
-		return differenceofTime;  
-	}		
 
 }

@@ -3,12 +3,10 @@ package com.qingshuimonk.tdoaclient.data_structrue;
 import java.util.concurrent.BlockingQueue;
 
 /***
- * This is a class defines variables and functions of FreqSpectrum
+ * 本类用于定义频谱数据相关的变量和方法
  * @author Huang Bohao
  * @version 1.0
  * @since 2014.11.10
- * 
- * @problem Functions of frequency spectrum needs to be added
  */
 
 public class FreqSpectrum{
@@ -16,7 +14,7 @@ public class FreqSpectrum{
 	private DateTime Time;
 	
 	/***
-	 * Constructor of FreqSpectrum
+	 * 构造函数
 	 * @param _Freqqueue
 	 * @param _Time
 	 */
@@ -25,26 +23,15 @@ public class FreqSpectrum{
 		Time = _Time;
 	}
 	
-	/***
-	 * Set Freqqueue of FreqSpectrum
-	 * @param _Freqqueue
-	 */
+	// setters
 	public void setFreqSpectrum(BlockingQueue<Integer> _Freqqueue){
 		Freqqueue = _Freqqueue;
 	}
 	
-	/***
-	 * Get Freqqueue of FreqSpectrum
-	 * @return Freqqueue
-	 */
+	// getters
 	public BlockingQueue<Integer> getFreqSpectrum(){
 		return Freqqueue;
 	}
-	
-	/***
-	 * Get Time of FreqSpectrum
-	 * @return Time
-	 */
 	public DateTime getTime(){
 		return Time;
 	}

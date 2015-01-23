@@ -14,7 +14,7 @@ import android.os.Handler;
 import android.os.Message;
 
 /***
- * This is a file used to send and receive data between client and server 
+ * 本类用于定义客户端和服务器之间数据传送和接收的相关操作方法
  * @author Huang Bohao
  * @version 1.0.0
  * @since 2015/01/10
@@ -40,13 +40,10 @@ public class Communicator{
 					socket.send(packet);
 					socket.close();
 				} catch (SocketException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 				Message msg = new Message();
@@ -63,7 +60,6 @@ public class Communicator{
 				try {
 					DatagramSocket socket = new  DatagramSocket (GV.Local_Port);
 					InetAddress serverAddress = InetAddress.getByName(GV.Server_Address);
-					// communication class
 					FrameFormer former = new FrameFormer(extraInfo);
 					
 					byte[] transmitFrame = former.FormTransmitFrame(GV, type);
@@ -72,13 +68,10 @@ public class Communicator{
 					socket.send(packet);
 					socket.close();
 				} catch (SocketException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				} 
 				Message msg = new Message();
@@ -102,18 +95,14 @@ public class Communicator{
 							byte data[] = new byte[1024];
 							DatagramPacket packet = new DatagramPacket(data, data.length);
 							socket.receive(packet);
-							// decode frame
+							// 解析帧
 							FrameFormer former = new FrameFormer();
 							former.DecodeTransmitFrame(GV, type, data);
-							//AvailableTunerGroup = receiveritem;
 							receiveflag = true;
 							socket.close();
-							//break;
 						} catch (SocketException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 						Message msg = new Message();
@@ -140,18 +129,15 @@ public class Communicator{
 							byte data[] = new byte[1024];
 							DatagramPacket packet = new DatagramPacket(data, data.length);
 							socket.receive(packet);
-							// decode frame
+							// 解析帧
 							FrameFormer former = new FrameFormer();
 							former.DecodeTransmitFrame(GV, type, data);
-							//AvailableTunerGroup = receiveritem;
 							receiveflag = true;
 							socket.close();
 							break;
 						} catch (SocketException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						} catch (IOException e) {
-							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
 					}

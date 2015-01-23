@@ -12,6 +12,7 @@ import com.qingshuimonk.tdoaclient.data_structrue.Position;
 import com.qingshuimonk.tdoaclient.data_structrue.Result;
 import com.qingshuimonk.tdoaclient.data_structrue.TunerWorkParameter;
 import com.qingshuimonk.tdoaclient.data_structrue.Variance;
+import com.qingshuimonk.tdoaclient.utils.SysApplication;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -45,6 +46,11 @@ import android.widget.TextView;
  * @version 1.0.0
  * @since 2014.11.21
  *
+ */
+/***
+ * FIXME
+ * @author Huang Bohao
+ * 本activity已被LocationResultActivity代替
  */
 public class ResultActivity extends Activity {
 	int TimePowerCheck = 0;
@@ -109,14 +115,12 @@ public class ResultActivity extends Activity {
 		Back.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 				builder.setMessage("返回请按确定:").setIcon(android.R.drawable.ic_dialog_alert)
 				       .setCancelable(false)
 				       .setPositiveButton("确定", new DialogInterface.OnClickListener(){
 									@Override
 									public void onClick(DialogInterface arg0, int arg1) {
-										// TODO Auto-generated method stub
 										Intent intent = new Intent(ResultActivity.this, ReceiverChooseActivity.class);
 										startActivity(intent);
 									}
@@ -130,14 +134,12 @@ public class ResultActivity extends Activity {
 		RunInBackGround.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 				builder.setMessage("后台运行请按确定:").setIcon(android.R.drawable.ic_dialog_alert)
 				       .setCancelable(false)
 				       .setPositiveButton("确定", new DialogInterface.OnClickListener(){
 									@Override
 									public void onClick(DialogInterface arg0, int arg1) {
-										// TODO Auto-generated method stub
 										// add method to run in back ground
 									}
 				       })
@@ -150,14 +152,12 @@ public class ResultActivity extends Activity {
 		Exit.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 				builder.setMessage("退出请按确定:").setIcon(android.R.drawable.ic_dialog_alert)
 				       .setCancelable(false)
 				       .setPositiveButton("确定", new DialogInterface.OnClickListener(){
 									@Override
 									public void onClick(DialogInterface arg0, int arg1) {
-										// TODO Auto-generated method stub
 										// add method to exit
 										SysApplication.getInstance().exit();
 									}
@@ -182,7 +182,6 @@ public class ResultActivity extends Activity {
 			.setPositiveButton("取消本次定位", new DialogInterface.OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
 					AlertDialog CancelReaffirmDialog = new AlertDialog.Builder(ResultActivity.this)
 					.setIcon(android.R.drawable.ic_dialog_alert)
 					.setTitle("取消定位:")
@@ -190,7 +189,6 @@ public class ResultActivity extends Activity {
 					.setPositiveButton("确定", new DialogInterface.OnClickListener(){
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
 							// cancel the monitor
 							Intent _intent = new Intent(ResultActivity.this, RegionChooseActivity.class);
 							startActivity(_intent);
@@ -204,7 +202,6 @@ public class ResultActivity extends Activity {
 			.setNeutralButton("后台运行", new DialogInterface.OnClickListener(){
 				@Override
 				public void onClick(DialogInterface dialog, int which) {
-					// TODO Auto-generated method stub
 					isBackGround = 1;
 					Intent intent = new Intent(Intent.ACTION_MAIN);
 			        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -381,7 +378,6 @@ public class ResultActivity extends Activity {
 	
 	@Override  
 	 public boolean onOptionsItemSelected(MenuItem item) {  
-		 // TODO Auto-generated method stub  
 		 switch(item.getItemId()){
 		 case R.id.action_settings:
 			 Intent _intent = new Intent(ResultActivity.this, SettingActivity.class);

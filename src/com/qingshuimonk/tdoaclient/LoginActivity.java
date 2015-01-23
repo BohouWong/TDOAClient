@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import android.annotation.SuppressLint;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -32,28 +33,31 @@ import com.qingshuimonk.tdoaclient.data_structrue.LocationRegion;
 import com.qingshuimonk.tdoaclient.data_structrue.TunerWorkGroup;
 import com.qingshuimonk.tdoaclient.data_structrue.TunerWorkParameter;
 import com.qingshuimonk.tdoaclient.utils.Communicator;
+import com.qingshuimonk.tdoaclient.utils.SysApplication;
 import com.qingshuimonk.tdoaclient.utils.FrameFormer.FRAME_TYPE;
 
 
 /***
- * This is an android activity file:
- * function:	1.Launch activity;
- * 				2.Guide user to create a new account or enter an old one;
+ * 本activity用于定义用户登录界面
+ * 配套xml文件: activity_login.xml
+ * 功能:		
+ * 	1.引导用户输入账号密码并登录 ;
+ *  2.提供密码找回，找好注册功能；
+ * 	3.将用户登录成功的账号密码及IP地址发送给服务器;
  * @author Huang Bohao
  * @version 1.0.0
  * @since 2014.11.11
- *
  */
 public class LoginActivity extends Activity {
 	
-	// Create widgets
+	// 控件
 	EditText inputUserName;
 	EditText inputPassWord;
 	TextView forgetPassWord;
 	TextView createNewAccount;
 	Button Login;
 	
-	// Global variables
+	// 用户名和密码
 	String UserName, PassWord;
 
 	@Override
@@ -61,54 +65,48 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_login);
 		
-		// add activity to list
+		// 将此activity添加到SysApplication类中
 		SysApplication.getInstance().addActivity(this);
 
-		// Used to access activity-level global variable
+		// 获取GlobalVariable类的全局变量
 		final GlobalVariable GV = (GlobalVariable)getApplicationContext(); 
 		
-		// variables for udp connection
-		final int Local_Port = GV.Local_Port;
-		final int Server_Port = GV.Server_Port;
-		final String Server_Address = GV.Server_Address;
-		
-		// Get widgets ID
+		// 控件
 		inputUserName = (EditText)findViewById(R.id.inputUserName);
 		inputPassWord = (EditText)findViewById(R.id.inputPassWord);
 		forgetPassWord = (TextView)findViewById(R.id.forgetPassWord);
 		createNewAccount = (TextView)findViewById(R.id.createNewAccount);
 		Login = (Button)findViewById(R.id.Login);
 		
-		// Listeners
+		// 登录按键监听
 		OnClickListener loginCheckListener;
 		
-		// create action bar
+		// 创建action bar
 		ActionBar LoginActionBar = this.getActionBar();
-		LoginActionBar.setDisplayShowTitleEnabled(true);	// ActionBar shows title only
+		LoginActionBar.setDisplayShowTitleEnabled(true);	// ActionBar只显示title
 		LoginActionBar.setDisplayShowHomeEnabled(false);
 		
-		// create a sharedpreference
+		// 创建sharedpreference，用于保存用户名和密码
 		final SharedPreferences AccountInfo = (SharedPreferences)this.getSharedPreferences("AccountInfo", MODE_PRIVATE);
 		final SharedPreferences.Editor AccountEditor = AccountInfo.edit();
 		
-		// input a temporary username and password
-		// for debug only
+		// 产生一个虚拟的用户名和密码
+		// 只用于调试
 		AccountEditor.putString("22", "22");
 		AccountEditor.putString("22mail", "22@22.com");
 		AccountEditor.commit();
 		
-		// define operations of listeners
+		// 登录按键监听程序
 		loginCheckListener = new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				try{
 					UserName = inputUserName.getText().toString();
 					PassWord = inputPassWord.getText().toString();
-					// find corresponding password in sharedpreferences
+					// 在sharedpreferences中寻找对应账号
 					String logincheck = AccountInfo.getString(UserName, "");
 					
-					// check if the username exists
+					// 检查用户名是否存在
 					if((logincheck.trim().equals(""))){
 						Dialog NoUserNameDialog = new AlertDialog.Builder(LoginActivity.this)
 						.setIcon(android.R.drawable.ic_dialog_alert).setTitle("登陆错误：")
@@ -121,23 +119,25 @@ public class LoginActivity extends Activity {
 						inputPassWord.setText("");
 					}
 					else{
-						// if user name and password matches
+						// 检查账号密码是否符合
 						if(logincheck.trim().equals(PassWord)){
-							// create the user class
+							// 创建 User class
 							GV.SysUser.setUserName(UserName);
 							GV.SysUser.setPassWord(PassWord);
 							
+							// TODO 自动判断有无网络连接
 							if(GV.DEBUG_NETWORK_CONDITION){
-								// jump to next activity, for wifi debug
+								// Network连接，直接跳到下一个activity
 								
-								// send data to server
+								// 将账户密码IP地址信息发送到服务器
 								final ProgressDialog SendMessage = new ProgressDialog(LoginActivity.this);
 								SendMessage.setProgressStyle(ProgressDialog.STYLE_SPINNER);
 								SendMessage.setMessage("等待向服务器发送参数");
 								SendMessage.setCancelable(false);
 								SendMessage.show();
-								// set handler
+								// 配置handler
 								final Handler sendhandler = new Handler() {  
+									@SuppressLint("HandlerLeak")
 									@Override
 									public void handleMessage(Message msg) {
 										super.handleMessage(msg);
@@ -147,15 +147,16 @@ public class LoginActivity extends Activity {
 									}     
 								}; 
 								
+								// 调用Communicator工具类
 								Communicator UserInfo_cator = new Communicator(sendhandler);
 								UserInfo_cator.sendInstruction(GV, FRAME_TYPE.USER_INFO);
 								
+								// 跳转到下一个activity
 								Intent _intent = new Intent(LoginActivity.this, RegionChooseActivity.class);
 								startActivity(_intent);
 							}
 							else{
-								// jump to next activity
-								// for no wifi debug only
+								// 无Network连接，创建虚拟定位结果后跳转到LocationParameterActivity
 								LocationRegion Region = new LocationRegion((byte) 0,20.12345,20.12345,
 										20.12345,20.12345);
 								TunerWorkParameter Parameter = new TunerWorkParameter(Region);
@@ -167,15 +168,14 @@ public class LoginActivity extends Activity {
 							
 							
 						}
-						// if user name does not match password
+						// 若用户名密码不符合
 						else{
-							// warning about wrong password
+							// 提示密码错误
 							Dialog WrongPassword = new AlertDialog.Builder(LoginActivity.this).setIcon(R.drawable.ic_launcher)
 									.setTitle("登陆错误：").setMessage("密码错误，请检查输入。")
 									.setNegativeButton("取消", new DialogInterface.OnClickListener(){
 										@Override
 										public void onClick(DialogInterface dialog, int id) {
-											// TODO Auto-generated method stub
 											inputPassWord.setText("");
 										}
 									}).setPositiveButton("确定", new DialogInterface.OnClickListener(){
@@ -187,18 +187,18 @@ public class LoginActivity extends Activity {
 						}
 					}
 				}catch(Exception e){
-					// deal exception
+					// 处理异常
 				}
 			}
 		};
 		
-		// bind listener to widgets
+		// 添加监听函数
 		Login.setOnClickListener(loginCheckListener);
 		
+		// 注册账号监听函数
 		createNewAccount.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				LayoutInflater inflater = (LayoutInflater) LoginActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
 				final View layout = inflater.inflate(R.layout.regist_dialog,  
                         (ViewGroup) findViewById(R.id.registdialog));
@@ -209,7 +209,6 @@ public class LoginActivity extends Activity {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
 								// 使对话框无法关闭
 								try { 
 										Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing"); 
@@ -233,8 +232,6 @@ public class LoginActivity extends Activity {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
-								
 								// 使对话框无法关闭
 								try { 
 										Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing"); 
@@ -249,8 +246,6 @@ public class LoginActivity extends Activity {
 								EditText RegistUsername = (EditText)layout.findViewById(R.id.newusername);
 								EditText RegistPassword = (EditText)layout.findViewById(R.id.newpassword);
 								EditText RegistMail = (EditText)layout.findViewById(R.id.newmail);
-								// 获取密码长度
-								int PasswordLength = RegistPassword.getText().toString().length();
 								// 邮箱有效性验证
 								Pattern pattern = Pattern
 										.compile("\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*");
@@ -306,10 +301,10 @@ public class LoginActivity extends Activity {
 			}
 		});
 		
+		// 忘记密码监听函数
 		forgetPassWord.setOnClickListener(new OnClickListener(){
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
 				LayoutInflater inflater = (LayoutInflater) LoginActivity.this.getSystemService(LAYOUT_INFLATER_SERVICE);
 				final View layout = inflater.inflate(R.layout.forgetpassword_dialog,  
                         (ViewGroup) findViewById(R.id.forgetpassworddialog));
@@ -320,7 +315,6 @@ public class LoginActivity extends Activity {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
 								// 使对话框无法关闭
 								try { 
 										Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing"); 
@@ -344,8 +338,6 @@ public class LoginActivity extends Activity {
 							
 							@Override
 							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
-								
 								// 使对话框无法关闭
 								try { 
 										Field field = dialog.getClass().getSuperclass().getDeclaredField("mShowing"); 
@@ -388,7 +380,7 @@ public class LoginActivity extends Activity {
 										       .setPositiveButton("确定", new DialogInterface.OnClickListener(){
 															@Override
 															public void onClick(DialogInterface arg0, int arg1) {
-																// TODO Auto-generated method
+																// TODO 用户获得密码后操作函数
 															}
 										       })
 										       .setNegativeButton("取消", null);
@@ -427,8 +419,7 @@ public class LoginActivity extends Activity {
 			       .setPositiveButton("确定", new DialogInterface.OnClickListener(){
 								@Override
 								public void onClick(DialogInterface arg0, int arg1) {
-									// TODO Auto-generated method stub
-									// add method to exit
+									// 调用SysApplication类的exit方法，完成推出所有activity操作
 									SysApplication.getInstance().exit();
 								}
 			       })
@@ -448,7 +439,6 @@ public class LoginActivity extends Activity {
 	
 	@Override  
 	 public boolean onOptionsItemSelected(MenuItem item) {  
-		 // TODO Auto-generated method stub  
 		 switch(item.getItemId()){
 		 case R.id.action_settings:
 			 Intent _intent = new Intent(LoginActivity.this, SettingActivity.class);

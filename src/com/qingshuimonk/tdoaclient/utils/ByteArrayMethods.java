@@ -1,10 +1,17 @@
 package com.qingshuimonk.tdoaclient.utils;
 
+import android.annotation.SuppressLint;
 import java.nio.ByteBuffer;
 
+/***
+ * 本类用于定义byte数组相关操作方法
+ * @author Huang Bohao
+ * @version 1.0
+ * @since 2014.11.10
+ */
 public class ByteArrayMethods{
 		
-		// merge two byte arrays
+		// 结合两个数组
 		public byte[] byteMerger(byte[] byte_1, byte[] byte_2) {
 			byte[] byte_3 = new byte[byte_1.length + byte_2.length];
 			System.arraycopy(byte_1, 0, byte_3, 0, byte_1.length);
@@ -12,7 +19,8 @@ public class ByteArrayMethods{
 			return byte_3;
 		}
 
-		// transform from double to byte
+		// double转换到byte
+		@SuppressLint("UseValueOf")
 		public byte[] doubleToByte(double d) {
 			byte[] b = new byte[8];
 			long l = Double.doubleToLongBits(d);
@@ -23,7 +31,7 @@ public class ByteArrayMethods{
 			return b;
 		}
 
-		// transform from int to byte
+		// int转换到byte
 		public byte[] intToByte(int n) {
 			byte[] b = new byte[4];
 			for (int i = 0; i < 4; i++) {
@@ -32,7 +40,7 @@ public class ByteArrayMethods{
 			return b;
 		}
 
-		// transform from long to byte
+		// long转换到byte
 		public byte[] longToByte(long n) {
 			byte[] b = new byte[8];
 			for (int i = 0; i < 8; i++) {
@@ -41,7 +49,7 @@ public class ByteArrayMethods{
 			return b;
 		}
 
-		// transform from short to byte
+		// short转换到byte
 		public byte[] shortToByte(short number) {
 			byte[] b = new byte[2];
 			for (int i = 1; i >= 0; i--) {
@@ -51,14 +59,15 @@ public class ByteArrayMethods{
 			return b;
 		}
 		
-		// transform from byte to long
+		// byte数组转换到long
 		public long getLong(byte[] bytes) {
 			ByteBuffer buffer = ByteBuffer.allocate(8);
 			buffer.put(bytes, 0, bytes.length);
 			buffer.flip();							// need flip
 			return buffer.getLong();
 		}
-
+		
+		// byte数组转换到short
 		public int byteToUShort(byte[] b) {
 			int s = 0;
 			short s0 = (short) (b[1] & 0xff);		// LSB

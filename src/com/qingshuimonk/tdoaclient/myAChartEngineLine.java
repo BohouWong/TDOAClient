@@ -6,10 +6,7 @@ import org.achartengine.model.XYMultipleSeriesDataset;
 import org.achartengine.model.XYSeries;
 import org.achartengine.renderer.XYMultipleSeriesRenderer;
 import org.achartengine.renderer.XYSeriesRenderer;
-
-import android.graphics.Color;
 import android.graphics.Paint.Align;
-import android.widget.LinearLayout;
 
 
 public class myAChartEngineLine{

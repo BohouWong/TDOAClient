@@ -2,14 +2,13 @@ package com.qingshuimonk.tdoaclient.data_structrue;
 
 import java.util.ArrayList;
 
-
 /***
- * This is a class defines variables and functions of Result
+ * 本类用于定义结果数据相关的变量和方法
  * @author Huang Bohao
  * @version 1.0
  * @since 2014.11.10
  * 
- * @problem The SyncTime function is needed to be completed
+ * TODO 需要添加同步函数
  */
 
 public class Result{
@@ -19,7 +18,7 @@ public class Result{
 	private DateTime Time;
 
 	/***
-	 * Constructor of Result
+	 * 构造函数
 	 * @param _Cor
 	 * @param _Pos
 	 * @param _Var
@@ -33,72 +32,36 @@ public class Result{
 		
 	}
 	
-	/***
-	 * Set Correlation of Result
-	 * @param _CorList
-	 */
+	// setters
 	public void setCorrelation(ArrayList<Correlation> _CorList){
 		CorList = _CorList;
 	}
-	
-	/***
-	 * Set Pos of Result
-	 * @param _Pos
-	 */
 	public void setPosition(Position _Pos){
 		Pos = _Pos;
 	}
-	
-	/***
-	 * Set Var of Result
-	 * @param _Var
-	 */
 	public void setVariance(Variance _Var){
 		Var = _Var;
 	}
-	
-	/***
-	 * Set Time of Result
-	 * @param _Time
-	 */
 	public void setDateTime(DateTime _Time){
 		Time = _Time;
 	}
 	
-	/***
-	 * Get CorList of Result
-	 * @return CorList
-	 */
+	// getters
 	public ArrayList<Correlation> getCorrelation(){
 		return CorList;
 	}
-	
-	/***
-	 * Get Pos of Result
-	 * @return Pos
-	 */
 	public Position getPosition(){
 		return Pos;
 	}
-	
-	/***
-	 * Get Variance of Result
-	 * @return Var
-	 */
 	public Variance getVariance(){
 		return Var;
 	}
-	
-	/***
-	 * Get Time of Result
-	 * @return Time
-	 */
 	public DateTime getTime(){
 		return Time;
 	}
 	
 	/***
-	 * Synchronization the Time of Correlation, Position and Variance
+	 * 同步各接收机的数据
 	 * @param _Cor
 	 * @param _Pos
 	 * @param _Var

@@ -16,52 +16,52 @@ import com.qingshuimonk.tdoaclient.data_structrue.Variance;
 
 
 /***
- * This is a file used to from frames in transmission
+ * 本类用于定义指令帧编码解码的相关操作方法
  * @author Huang Bohao
  * @version 1.0.0
  * @since 2014/12/06
  */
 public class FrameFormer{
 	
-	// define the type of frame
+	// 定义指令类型
 	public enum FRAME_TYPE{
-		USER_INFO,
-		AVAILABLE_RECEIVER_MAP, 
-		SET_PARAMETER,
-		AVAILABLE_RECEIVER, 
-		CHOSEN_RECEIVER,
-		LOCATION_RESULT,
-		CORRELATION_RESULT, 
-		FREQUENCY_RESULT, 
-		DATA_REQUEST, 
-		NO_NEW_RESULT
+		USER_INFO,						// 用户信息
+		AVAILABLE_RECEIVER_MAP, 		// 可用接收机(用于百度地图显示)
+		SET_PARAMETER,					// 接收机工作参数
+		AVAILABLE_RECEIVER, 			// 可用接收机(用于用户选择)
+		CHOSEN_RECEIVER,				// 接收机选择结果
+		LOCATION_RESULT,				// 定位结果
+		CORRELATION_RESULT, 			// 相关结果
+		FREQUENCY_RESULT, 			// 频谱结果
+		DATA_REQUEST, 					// 数据请求
+		NO_NEW_RESULT					// 无新数据
 	}
-	public static int START_LENGTH = 4;
-	public static int PRIMARY_VERSION_LENGTH = 2;
-	public static int SECONDARY_VERSION_LENGTH = 2;
-	public static int INSTRUCTION_LENGTH = 4;
-	public static int RESERVE_BIT_LENGTH = 8;
-	public static int FRAME_LENGTH_LENGTH = 4;
-	public static int CLIENT_ID_LENGTH = 6;
-	public static int SERVER_LENGTH = 6;
-	public static int DATE_LENGTH = 14;
-	public static int FRAME_FUNCTION_LENGTH = 4;
-	public static int FRAME_HEAD_LENGTH = 54;
-	public static int CHECK_CODE_LENGTH = 1;
-	public static int RECEIVER_ITEM_LENGTH = 34;
-	public static int RECEIVER_ITEM_LENGTH_SHORT = 17;
+	public static int START_LENGTH = 4;						// 帧头长度
+	public static int PRIMARY_VERSION_LENGTH = 2;				// 主版本号长度
+	public static int SECONDARY_VERSION_LENGTH = 2;			// 次版本号长度
+	public static int INSTRUCTION_LENGTH = 4;					// 指令序号长度
+	public static int RESERVE_BIT_LENGTH = 8;					// 保留位长度
+	public static int FRAME_LENGTH_LENGTH = 4;				// 帧长长度
+	public static int CLIENT_ID_LENGTH = 6;					// 客户端MAC地址长度
+	public static int SERVER_ID_LENGTH = 6;					// 服务器MAC地址长度
+	public static int DATE_LENGTH = 14;						// 数据长度
+	public static int FRAME_FUNCTION_LENGTH = 4;				// 帧功能码长度
+	public static int FRAME_HEAD_LENGTH = 54;					// 帧头长度
+	public static int CHECK_CODE_LENGTH = 1;					// 校验位长度
+	public static int RECEIVER_ITEM_LENGTH = 34;				// 接收机数据每条目长度
+	public static int RECEIVER_ITEM_LENGTH_SHORT = 17;		// 接收机数据(用于百度地图显示)每条目长度
 	
 	private ByteArrayMethods methods = new ByteArrayMethods();
 	private byte extraInfo;
 	
 	/***
-	 * Constructor of FrameFormer, used for ordinary instruction
+	 * 普通指令构造函数
 	 */
 	public FrameFormer(){
 	}
 	/***
-	 * Constructor of FrameFormer, used for data request instruction
-	 * @param _extraInfo : the instruct order
+	 * 数据请求指令构造函数
+	 * @param _extraInfo : 数据请求构造指令序号
 	 */
 	public FrameFormer(byte _extraInfo){
 		extraInfo = _extraInfo;
@@ -72,28 +72,28 @@ public class FrameFormer{
 		byte[] TransmitFrame = null;
 		
 		byte[] Start = {0x01, 0x32, (byte)0xDC, 0x52};	// magic number
-		// primary version number
+		// 主版本号
 		byte[] PrimaryVersionNumber = new byte[2];
-		// secondary version number
+		// 次版本号
 		byte[] SecondaryVersionNumber = new byte[2];
-		// instruct number
+		// 指令序号
 		byte[] InstructNumber = new byte[4];
-		// reserve bit
+		// 保留位
 		byte[] ReserveBit = new byte[8];
-		// frame length
+		// 帧长
 		byte[] FrameLength = new byte[4];
-		// client's ID
+		// 客户端MAC
 		byte[] ClientID = new byte[6];
-		// server's ID
+		// 服务器MAC
 		byte[] ServerID = new byte[6];
-		// send time
+		// 发送时间
 		byte[] TransmitTime = new byte[14];
-		// function of the frame
+		// 帧功能码
 		byte[] FrameFunction = new byte[4];
-		// check length
+		// 构造位
 		byte[] CheckCode = {0};
 		
-		// generate time frame
+		// 产生指令时间
 		byte[] SysYear = new byte[2], SysMilisecond = new byte[2];
 		byte SysMonth, SysDay, SysHour, SysMinute, SysSecond;
 		Calendar c = Calendar.getInstance();
@@ -115,36 +115,38 @@ public class FrameFormer{
 	    TransmitTime[13] = SysMilisecond[1];
 	    
 	    switch(type){
-	    case USER_INFO:						// frame type: set user's information
+	    case USER_INFO:						// 指令类型：用户信息指令
 	    	FrameFunction[0] = 0x00;
 	    	FrameFunction[1] = 0x03;
 	    	FrameFunction[2] = (byte)0x9F;
 	    	FrameFunction[3] = 0x10;
 	    	break;
-	    case SET_PARAMETER:					// frame type: set location parameter
+	    case SET_PARAMETER:					// 指令类型：设置定位参数
 	    	FrameFunction[0] = 0x00;
 	    	FrameFunction[1] = 0x03;
 	    	FrameFunction[2] = (byte)0x9F;
 	    	FrameFunction[3] = 0x12;
 	    	break;
-	    case CHOSEN_RECEIVER:				// frame type: chosen receiver
+	    case CHOSEN_RECEIVER:					// 指令类型：接收机选择结果
 	    	FrameFunction[0] = 0x00;
 	    	FrameFunction[1] = 0x03;
 	    	FrameFunction[2] = (byte)0x9F;
 	    	FrameFunction[3] = 0x14;
 	    	break;
-	    case DATA_REQUEST:					// frame type: request data from server or send instructions
+	    case DATA_REQUEST:					// 指令类型：数据请求
 	    	FrameFunction[0] = 0x00;
 	    	FrameFunction[1] = 0x03;
 	    	FrameFunction[2] = (byte)0x9F;
 	    	FrameFunction[3] = 0x18;
 	    	break;
+		default:
+			break;
 	    }
 	    
-	    // get frame entity
+	    // 构造帧体
 	    byte[] FrameEntity = FrameEntity(GV, type);
 	    
-	    // merge into frame
+	    // 合成指令帧
 	    TransmitFrame = methods.byteMerger(Start, PrimaryVersionNumber);
 	    TransmitFrame = methods.byteMerger(TransmitFrame, SecondaryVersionNumber);
 	    TransmitFrame = methods.byteMerger(TransmitFrame, InstructNumber);
@@ -157,7 +159,7 @@ public class FrameFormer{
 	    TransmitFrame = methods.byteMerger(TransmitFrame, FrameEntity);
 	    TransmitFrame = methods.byteMerger(TransmitFrame, CheckCode);
 	    
-	    // add frame length
+	    // 添加帧长
 	    int length = TransmitFrame.length;
 	    FrameLength = methods.intToByte(length);
 	    for(int i = 0; i < 4; i++){
@@ -167,32 +169,37 @@ public class FrameFormer{
 		return TransmitFrame;
 	}
 	
+	/***
+	 * 解析数据指令帧
+	 * @param GV
+	 * @param type
+	 * @param TransmitFrame
+	 * @return
+	 */
 	public boolean DecodeTransmitFrame(GlobalVariable GV, FRAME_TYPE type, byte[] TransmitFrame){
-		User SysUser = GV.SysUser;
-		
 		byte[] function = new byte[4];
 		byte[] entity = new byte[TransmitFrame.length - CHECK_CODE_LENGTH - FRAME_HEAD_LENGTH];
-		// get frame type
+		// 获得帧功能码
 		for(int i = 0; i < FRAME_FUNCTION_LENGTH ; i++){
 			function[i] = TransmitFrame[FRAME_HEAD_LENGTH - FRAME_FUNCTION_LENGTH + i];
 		}
 		
-		// get frame entity
+		// 获得帧体
 		for(int i = FRAME_HEAD_LENGTH; i < TransmitFrame.length - CHECK_CODE_LENGTH; i++){
 			entity[i - FRAME_HEAD_LENGTH] = TransmitFrame[i];
 		}
 		
 		switch(function[3]){
 		case (byte)0x11:
-			// 0x39F11, region choose
+			// 0x39F11, 百度地图接收机显示
 			decodeEntity(GV, FRAME_TYPE.AVAILABLE_RECEIVER_MAP, entity);
 			break;
 		case (byte)0x13:
-			// 0x39F11, receiver choose list
+			// 0x39F11, 接收机选择
 			decodeEntity(GV, FRAME_TYPE.AVAILABLE_RECEIVER, entity);
 			break;
 		case (byte)0x15:
-			// 0x39F15, location result
+			// 0x39F15, 定位结果
 			decodeEntity(GV, FRAME_TYPE.LOCATION_RESULT, entity);
 			break;
 		}
@@ -200,38 +207,41 @@ public class FrameFormer{
 		return true;
 	}
 	
+	/***
+	 * 构造不同指令类型的帧体
+	 * @param GV
+	 * @param type
+	 * @return
+	 */
 	public byte[] FrameEntity(GlobalVariable GV, FRAME_TYPE type){
 		User SysUser = GV.SysUser;
 		byte[] Entity = null;
 		
-		if(type.equals(type.SET_PARAMETER)){
-			// form a frame used in setting parameter
+		if(type.equals(FRAME_TYPE.SET_PARAMETER)){
+			// 构造参数设定指令帧
 			TunerWorkParameter Parameter = SysUser.getWorkGroup().getParameter();
 			LocationRegion Region = Parameter.getLocationRegion();
 			DateTime Time = Parameter.getTrigTime();
-			// type of location region
+			// 定位区域类型
 			byte[] RegionMode = {Region.getRegionMode()};
-			// location value 1
+			// 定位区域值
 			byte[] RegionInput1 = methods.doubleToByte(Region.getRegionValue1());
-			// location value 2
 			byte[] RegionInput2 = methods.doubleToByte(Region.getRegionValue2());
-			// location value 3
 			byte[] RegionInput3 = methods.doubleToByte(Region.getRegionValue3());
-			// location value 4
 			byte[] RegionInput4 = methods.doubleToByte(Region.getRegionValue4());
-			// location algorithm
+			// 定位算法
 			byte[] Algorithm = {0x01};
-			// center frequency
+			// 中心频率
 			byte[] CenterFre = methods.longToByte(Parameter.getCenterFreq());
-			// bandwidth
+			// 带宽
 			byte[] BandWidth = methods.intToByte(Parameter.getBandWidth());
-			// trigger mode
+			// 触发方式
 			byte[] TrigMode = {Parameter.getTrigMode()};
-			// form frame based different trigger mode
+			// 根据不同触方式构造帧体
 			byte[] TrigTime = {0};
 			byte[] TrigPower = {0};
 			if(Parameter.getTrigMode() == 0){
-				// time trigger
+				// 时间触发
 				short year = (short)Time.getYear();
 				short month = (short)Time.getMonth();
 				short day = (short)Time.getDay();
@@ -246,15 +256,15 @@ public class FrameFormer{
 				TrigTime = methods.byteMerger(TrigTime, methods.shortToByte((short)0));
 			}
 			if(Parameter.getTrigMode() == 1){
-				// power trigger
+				// 能量触发
 				TrigPower = methods.shortToByte(Parameter.getTrigPower());
 			}
 			// MGC
-			// MGC has to left shift 1 bit according to frame protocol
+			// 根据指令帧，MGC需要左移一位
 			byte[] MGC = {(byte) (Parameter.getMGC()*2)};
-			// size of an IQ package
+			// IQ包长度
 			byte[] IQSize = {Parameter.getIQNum()};
-			// check frame length
+			// 检测帧
 			byte[] CheckFrame = new byte[2];
 			
 			Entity = methods.byteMerger(RegionMode, RegionInput1);
@@ -273,8 +283,8 @@ public class FrameFormer{
 			Entity = methods.byteMerger(Entity, IQSize);
 			Entity = methods.byteMerger(Entity, CheckFrame);
 		}
-		else if(type.equals(type.CHOSEN_RECEIVER)){
-			// form a frame used in transmitting chosen receiver
+		else if(type.equals(FRAME_TYPE.CHOSEN_RECEIVER)){
+			// 构造接收机选择结果数据桢
 			ArrayList<Tuner> TunerGroup = SysUser.getWorkGroup().getTunerGroup();
 			int TunerNum = TunerGroup.size();
 			Entity = new byte[1 + TunerNum];
@@ -285,8 +295,8 @@ public class FrameFormer{
 				i++;
 			}
 		}
-		else if(type.equals(type.DATA_REQUEST)){
-			// form a frame to request data or send instructions
+		else if(type.equals(FRAME_TYPE.DATA_REQUEST)){
+			// 构造数据请求指令帧
 			switch(extraInfo){
 			case 0x01: Entity = new byte[1];
 						Entity[0] = 0x01;
@@ -308,7 +318,8 @@ public class FrameFormer{
 			case 0x08: break;
 			}
 		}
-		else if(type.equals(type.USER_INFO)){
+		else if(type.equals(FRAME_TYPE.USER_INFO)){
+			// 构造用户信息指令帧
 			String UserName = SysUser.getUserName();
 			String IPAddress = GV.Server_Address;
 			String IPs[] = IPAddress.split("\\.");
@@ -325,12 +336,19 @@ public class FrameFormer{
 		return Entity;
 	}
 	
+	/***
+	 * 解析指令帧功能和数据
+	 * @param GV
+	 * @param type
+	 * @param FrameEntity
+	 * @return
+	 */
 	public boolean decodeEntity(GlobalVariable GV, FRAME_TYPE type, byte[] FrameEntity){
-		if(type.equals(type.AVAILABLE_RECEIVER)){
-			// decode available receiver list
+		if(type.equals(FRAME_TYPE.AVAILABLE_RECEIVER)){
+			// 解析可用接收机指令帧
 			int receiverNum = (int) FrameEntity[0];
 			
-			// define byte arrays used for transformation
+			// 转换用数组
 			byte[] ReceiverLongitudebytes = new byte[8]; 
 			byte[] ReceiverLatitudebytes = new byte[8];
 			byte[] ReceiverAltitudebytes = new byte[8];
@@ -357,17 +375,17 @@ public class FrameFormer{
 				l = methods.getLong(ReceiverVppbytes);
 				double ReceiverVpp = Double.longBitsToDouble(l);
 				
-				// add into ArrayList
+				// 添加进ArrayList
 				Position newPos = new Position(ReceiverLongitude, ReceiverLatitude, ReceiverAltitude);
 				Tuner newTuner0 = new Tuner(ReceiverOrder, newPos, ReceiverWorkMode, ReceiverVpp);
 				GV.AvailableTuner.add(GV.AvailableTuner.size(), newTuner0);
 			}
 		}
-		else if(type.equals(type.AVAILABLE_RECEIVER_MAP)){
-			// decode available receiver list
+		else if(type.equals(FRAME_TYPE.AVAILABLE_RECEIVER_MAP)){
+			// 解析可用接收机(用于百度地图显示)指令
 			int receiverNum = (int) FrameEntity[0];
 
-			// define byte arrays used for transformation
+			// 转换用数组
 			byte[] ReceiverLongitudebytes = new byte[8];
 			byte[] ReceiverLatitudebytes = new byte[8];
 			
@@ -376,7 +394,6 @@ public class FrameFormer{
 			for(int i = 0; i < receiverNum; i ++){
 				byte ReceiverOrder = FrameEntity[1 + i*RECEIVER_ITEM_LENGTH_SHORT];
 				for(int j = 0; j < 8; j++){
-					// copy byte arrays
 					ReceiverLongitudebytes[j] = FrameEntity[2+i*RECEIVER_ITEM_LENGTH_SHORT + j];
 					ReceiverLatitudebytes[j] = FrameEntity[2+i*RECEIVER_ITEM_LENGTH_SHORT + 8 + j];
 				}
@@ -385,13 +402,13 @@ public class FrameFormer{
 				l = methods.getLong(ReceiverLatitudebytes);
 				double ReceiverLatitude = Double.longBitsToDouble(l);
 				
-				// add into ArrayList
+				// 添加进ArrayList
 				Position newPos = new Position(ReceiverLongitude, ReceiverLatitude, 0);
 				Tuner newTuner0 = new Tuner(ReceiverOrder, newPos, (byte) 0, 0);
 				GV.AvailableTuner.add(GV.AvailableTuner.size(), newTuner0);
 			}
 		}
-		else if(type.equals(type.LOCATION_RESULT)){
+		else if(type.equals(FRAME_TYPE.LOCATION_RESULT)){
 			byte[] TargetLongitudebytes = new byte[8]; 
 			byte[] TargetLatitudebytes = new byte[8];
 			byte[] TargetAltitudebytes = new byte[8];
@@ -419,10 +436,9 @@ public class FrameFormer{
 				}
 			}
 			
-			// add into result
+			// 结果添加进result
 			Position locationPosition = new Position(TargetLongitude, TargetLatitude, TargetAltitude);
 			DateTime locationTime = new DateTime(time[0], time[1], time[2], time[3], time[4], time[5], time[6]);
-			// Result locationResult = GV.SysUser.getWorkGroup().getResult();
 			ArrayBlockingQueue<Double> varQueue = new ArrayBlockingQueue<Double>(1);
 			varQueue.add(TargetVariance);
 			Variance Var = new Variance(varQueue, locationTime);

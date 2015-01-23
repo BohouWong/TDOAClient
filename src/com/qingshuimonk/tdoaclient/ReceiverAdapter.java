@@ -18,6 +18,16 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/***
+ * 本类用于定义Receiver相关的ListView操作
+ * 功能:		
+ * 	1.填充每一个List的内容;
+ *  2.每一次用户选择/取消接收机时更新用户选择；
+ * 	3.返回用户已选中的接收机;
+ * @author Huang Bohao
+ * @version 1.0.0
+ * @since 2014.11.11
+ */
 public class ReceiverAdapter extends ArrayAdapter<Tuner>{
 	
 	int resource;
@@ -86,8 +96,9 @@ public class ReceiverAdapter extends ArrayAdapter<Tuner>{
 		Selected.setOnCheckedChangeListener(new OnCheckedChangeListener(){
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				// TODO Auto-generated method stub
 				if(isChecked){
+					// 选中后向ChooseResult添加该接收机ID
+					// 接收机选择数+1
 					int i;
 					i = Integer.parseInt(itemID);
 					if(!ChooseResult.contains(ID)){
@@ -96,6 +107,8 @@ public class ReceiverAdapter extends ArrayAdapter<Tuner>{
 					}
 				}
 				else{
+					// 取消后向ChooseResult除去该接收机ID
+					// 接收机选择数-1
 					int i;
 					i = Integer.parseInt(itemID);
 					if(ChooseResult.contains(ID)){
@@ -106,6 +119,8 @@ public class ReceiverAdapter extends ArrayAdapter<Tuner>{
 			}
 		});
 		
+		// 每次按照用户选中状态跟新每个List的选中状态
+		// 避免因共用view造成的“一点多选”问题
 		if(ChooseResult.contains(ID)){
 			Selected.setChecked(true);
 		}

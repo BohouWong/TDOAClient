@@ -1,14 +1,9 @@
 package com.qingshuimonk.tdoaclient;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.BlockingQueue;
-
-import com.qingshuimonk.tdoaclient.data_structrue.Correlation;
 import com.qingshuimonk.tdoaclient.data_structrue.DateTime;
 import com.qingshuimonk.tdoaclient.data_structrue.Position;
 import com.qingshuimonk.tdoaclient.data_structrue.Result;
-import com.qingshuimonk.tdoaclient.data_structrue.Variance;
 
 
 import android.app.AlertDialog;
@@ -23,6 +18,11 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+/***
+ * FIXME
+ * @author Huang Bohao
+ * 本activity已因ResultActivity被LocationResultActivity代替而弃用
+ */
 public class ResultAdapter extends ArrayAdapter<Result>{
     
     int resource;
@@ -38,9 +38,7 @@ public class ResultAdapter extends ArrayAdapter<Result>{
         
         Result item = getItem(position);
         
-        ArrayList<Correlation> CorList = item.getCorrelation();
-    	Position Pos = item.getPosition();
-    	Variance Var = item.getVariance();
+        Position Pos = item.getPosition();
     	final DateTime Time = item.getTime();
         
         if(convertView == null){
@@ -70,14 +68,12 @@ public class ResultAdapter extends ArrayAdapter<Result>{
         itemResultCorrelation.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				// TODO Auto-generated method stub
 				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 				builder.setMessage("是否显示相关数据？")
 				       .setCancelable(false)
 				       .setPositiveButton("确定", new DialogInterface.OnClickListener(){
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
-										// TODO Auto-generated method stub
 										Intent mIntent = new Intent(v.getContext(),CorrelationActivity.class);
 										Bundle mBundle = new Bundle();
 										mBundle.putSerializable("correlation", 4);
@@ -94,14 +90,12 @@ public class ResultAdapter extends ArrayAdapter<Result>{
         itemResultVariance.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				// TODO Auto-generated method stub
 				AlertDialog.Builder builder = new AlertDialog.Builder(v.getContext());
 				builder.setMessage("是否显示方差数据？")
 				       .setCancelable(false)
 				       .setPositiveButton("确定", new DialogInterface.OnClickListener(){
 									@Override
 									public void onClick(DialogInterface dialog, int which) {
-										// TODO Auto-generated method stub
 										Intent mIntent = new Intent(v.getContext(),CorrelationActivity.class);
 										Bundle mBundle = new Bundle();
 										mBundle.putSerializable("variance", 4);

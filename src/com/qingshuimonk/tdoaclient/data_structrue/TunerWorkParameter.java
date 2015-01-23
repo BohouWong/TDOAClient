@@ -1,27 +1,27 @@
 package com.qingshuimonk.tdoaclient.data_structrue;
 
 /***
- * This is a class defines variables and functions of TunerWorkParameter
+ * 本类用于定义接收机工作组工作参数数据相关的变量和方法
  * @author Huang Bohao
  * @version 1.0
  * @since 2014.11.10
  */
 
 public class TunerWorkParameter{
-	private long CenterFreq;			// Center Frequency
-	private int BandWidth; 				// Bandwidth
-	private byte TrigMode;				// Trigger mode
-	private DateTime TrigTime; 			// Trigger time
-	private short TrigPower;			// Trigger power
-	private byte IQNum;					// IQ data in each package, units in kB
-	private byte MGC;					// Manual gain control
-	private LocationRegion Region;		// Location Region
+	private long CenterFreq;			// 中心频率
+	private int BandWidth; 			// 带宽
+	private byte TrigMode;				// 触发方式
+	private DateTime TrigTime; 		// 触发时间
+	private short TrigPower;			// 触发能量
+	private byte IQNum;				// 每包IQ数据，单位kB
+	private byte MGC;					// 手动增益控制
+	private LocationRegion Region;		// 定位区域
 	
 	/***
-	 * Constructor of TunerWorkParameter
+	 * 构造
 	 * @param _CenterFreq
 	 * @param _BandWidth
-	 * @param _TrigMode: 	0:Time trigger mode;	1:Power trigger mode
+	 * @param _TrigMode: 	0:时间触发模式;	1:能量触发模式
 	 * @param _TrigTime
 	 * @param _TrigPower
 	 * @param _IQNum
@@ -40,137 +40,61 @@ public class TunerWorkParameter{
 		Region = _Region;
 	}
 	/***
-	 * Constructor of TunerWorkParameter
+	 * 构造函数
 	 * @param _Region
 	 */
 	public TunerWorkParameter(LocationRegion _Region){
 		Region = _Region;
 	}
 	
-	/***
-	 * Set CenterFreq
-	 * @param _CenterFreq
-	 */
+	// setters
 	public void setCenterFreq(long _CenterFreq){
 		CenterFreq = _CenterFreq;
 	}
-	
-	/***
-	 * Set BandWidth
-	 * @param _BandWidth
-	 */
 	public void setBandWidth(int _BandWidth){
 		BandWidth = _BandWidth;
 	}
-	
-	/***
-	 * Set TrigMode
-	 * @param _TrigMode
-	 */
 	public void setTrigMode(byte _TrigMode){
 		TrigMode = _TrigMode;
 	}
-	
-	/***
-	 * Set Time
-	 * @param _Time
-	 */
 	public void setTrigTime(DateTime _TrigTime){
 		TrigTime = _TrigTime;
 	}
-	
-	/***
-	 * Set TrigPower
-	 * @param _TrigPower
-	 */
 	public void setTrigPower(short _TrigPower){
 		TrigPower = _TrigPower;
 	}
-	
-	/***
-	 * Set IQNum
-	 * @param _IQNum
-	 */
 	public void setIQNum(byte _IQNum){
 		IQNum = _IQNum;
 	}
-	
-	/***
-	 * Set MGC
-	 * @param MGC
-	 */
 	public void setMGC(byte _MGC){
 		MGC = _MGC;
 	}
-	
-	/***
-	 * Set Region
-	 * @param _Region
-	 */
 	public void setLocationRegion(LocationRegion _Region){
 		Region = _Region;
 	}
 	
-	/***
-	 * Get CenterFreq
-	 * @return CenterFreq;
-	 */
+	// getters
 	public long getCenterFreq(){
 		return CenterFreq;
 	}
-	
-	/***
-	 * Get BandWidth
-	 * @return BandWidth
-	 */
 	public int getBandWidth(){
 		return BandWidth;
 	}
-	
-	/***
-	 * Get TrigMode
-	 * @return TrigMode
-	 */
 	public byte getTrigMode(){
 		return TrigMode;
 	}
-	
-	/***
-	 * Get TrigTime
-	 * @return TrigTime
-	 */
 	public DateTime getTrigTime(){
 		return TrigTime;
 	}
-	
-	/***
-	 * Get TrigPower
-	 * @return TrigPower
-	 */
 	public short getTrigPower(){
 		return TrigPower;
 	}
-	
-	/***
-	 * Get IQNum
-	 * @return IQNum
-	 */
 	public byte getIQNum(){
 		return IQNum;
 	}
-	
-	/***
-	 * Get MGC
-	 * @return MGC
-	 */
 	public byte getMGC(){
 		return MGC;
 	}
-	
-	/***
-	 * Get Region
-	 * @return Region
-	 */
 	public LocationRegion getLocationRegion(){
 		return Region;
 	}
